@@ -1,0 +1,14 @@
+#createsItem
+{
+  display: grid;
+  width: 500px;
+  padding: 20px;
+  text-align: center;
+  background-color: lightsteelblue;
+  border-radius: 25px;
+}
+#createsItem > input + select
+{
+  background-color: gray;
+  border-radius: 5px;
+}
