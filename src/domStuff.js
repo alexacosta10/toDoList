@@ -13,5 +13,3 @@ export const dueDateInput = document.getElementById('dueDate');
 export const priorityInput = document.getElementById('priority');
 export const submitItemButton = document.getElementById('submitItem');
 
-submitProjectButton.addEventListener('click', ToDoApp.createProject());
-submitItemButton.addEventListener('click', Project.createItem());

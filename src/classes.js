@@ -1,13 +1,13 @@
 import { submitProjectButton, submitItemButton, titleInput, descrInput, dueDateInput, priorityInput, projectTitleInput, projectDescrInput, projectsContainer} from "./domStuff.js";
 
-class ToDoApp 
-{
-  static projects = [];
-  static currentProject = null; // Initialized as null or assign a specific project if needed
+const ToDoApp = (() => {
+  let projects = [];
+  let currentProject = null;
 
-  static displayProjects() {
+  const displayProjects = () => {
     projectsContainer.replaceChildren();
-    this.projects.forEach((project) => {
+
+    projects.forEach((project) => {
       const projectContainer = document.createElement('div');
       projectContainer.className = 'projectContainer';
 
@@ -18,15 +18,52 @@ class ToDoApp
 
       const deleteProjectButton = document.createElement('button');
       deleteProjectButton.textContent = 'Delete Project';
-      deleteProjectButton.addEventListener('click', () => this.deleteProject(project));
+      deleteProjectButton.addEventListener('click', () => deleteProject(project));
 
       projectContainer.appendChild(titleElement);
       projectContainer.appendChild(descrElement);
       projectContainer.appendChild(deleteProjectButton);
       projectsContainer.appendChild(projectContainer);
     });
-  }
-}
+  };
+
+  const createProject = () => {
+    const projectTitle = projectTitleInput.value;
+    const projectDescr = projectDescrInput.value;
+
+    if (projectTitle && projectDescr) 
+    {
+      projects.push(new Project(projectTitle, projectDescr));
+      projectTitleInput.value = projectDescrInput.value = '';
+      displayProjects();
+    } 
+    else 
+    {
+      alert("Please enter a project title and description.");
+    }
+  };
+
+  const deleteProject = (projectToDelete) => {
+    projects = projects.filter(project => project !== projectToDelete);
+    displayProjects();
+  };
+
+  const init = () => {
+    // Attach event listeners to buttons or any DOM-related initializations
+    const createProjectButton = document.getElementById('createProjectButton');
+    createProjectButton.addEventListener('click', createProject);
+
+    displayProjects();
+  };
+
+  return {
+    init,
+    createProject,
+    deleteProject,
+    displayProjects,
+  };
+})();
+
 
 class Project
 {
